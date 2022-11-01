@@ -27,15 +27,14 @@ const MyApp = (): ReactElement => {
 
   // eslint-disable-next-line
   const handlePostScore = () => {
-    if (!user || !credentials) {
+    if (!credentials || !user) {
+      handleError('Invalid user and/or credentials ');
       return;
     }
 
-    try {
-      postScore(user, credentials, config.appId, 9000);
-    } catch (err) {
-      handleError(err);
-    }
+    postScore(user, credentials, config.appId, 9000)
+      .then(() => null)
+      .catch(err => handleError(err));
   };
 
   // eslint-disable-next-line
