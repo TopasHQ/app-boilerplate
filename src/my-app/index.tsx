@@ -1,10 +1,10 @@
 import { Stars } from '@react-three/drei';
 import { DevTools, FadeToBlack, TeleportTravel, ThumbStickRotation } from '@topashq/toolkit';
-import { ErrorContext } from 'contexts/ErrorContext';
-import { GameSessionContext } from 'contexts/GameSessionContext';
-import { UserContext } from 'contexts/UserContext';
 import useHighscores from 'hooks/useHighscores';
-import { ReactElement, useContext, useState } from 'react';
+import { ReactElement, useState } from 'react';
+import useErrorStore from 'stores/useErrorStore';
+import useSceneStore from 'stores/useSceneStore';
+import useUserStore from 'stores/useUserStore';
 import useSound from 'use-sound';
 import { postScore } from 'utils/scores';
 import Tipper from 'vr-app/ui/tipper/Tipper';
@@ -21,9 +21,9 @@ const MyApp = (): ReactElement => {
   const [showExitGame, setShowExitGame] = useState(false);
   const [playSound] = useSound(targetHitSound);
 
-  const { scene } = useContext(GameSessionContext);
-  const { handleError } = useContext(ErrorContext);
-  const { user, credentials } = useContext(UserContext);
+  const setScene = useSceneStore(state => state.setScene);
+  const handleError = useErrorStore(state => state.handleError);
+  const { user, credentials } = useUserStore(state => ({ user: state.user, credentials: state.credentials }));
 
   // eslint-disable-next-line
   const handlePostScore = () => {
@@ -38,6 +38,7 @@ const MyApp = (): ReactElement => {
     }
   };
 
+  // eslint-disable-next-line
   const { highscores } = useHighscores(config.appId);
 
   return (
@@ -62,7 +63,7 @@ const MyApp = (): ReactElement => {
       </TeleportTravel>
 
       {process.env.NODE === 'development' && <DevTools />}
-      {showExitGame && <FadeToBlack callback={() => scene.handleSceneChange('sixStarsArcade')} delay={3000} />}
+      {showExitGame && <FadeToBlack callback={() => setScene('sixStarsArcade')} delay={3000} />}
     </>
   );
 };

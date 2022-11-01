@@ -20,3 +20,5 @@ export interface Highscore {
   score: number;
   createdAt: DateTimeMetadata;
 }
+
+export type Scene = 'openWorld' | 'sixStarsArcade' | 'galex';
