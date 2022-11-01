@@ -12,9 +12,9 @@ For inspiration and reference, see [Octa Blaster](https://github.com/TopasHQ/oct
   - [Tipper](#tipper)
   - [getAssetPath](#getassetpath)
   - [postScore](#postscore)
-  - [ErrorContext](#errorcontext)
-  - [UserContext](#usercontext)
-  - [GameSessionContext](#gamesessioncontext)
+  - [useErrorStore](#useerrorstore)
+  - [useUserStore](#useuserstore)
+  - [useSceneStore](#usescenestore)
 - [License](#license)
 
 ## General guidelines
@@ -57,15 +57,15 @@ Ensures your asset is loaded from the correct location in all environments (deve
 
 A utility that posts a score to the leaderboard of your app (only applicable for _games_).
 
-### ErrorContext
+### useErrorStore
 
 Returns a `handleError` function that allows you to display error messages in the VR application.
 
-### UserContext
+### useUserStore
 
 Returns the `user` and `credentials` objects, required for the `postScore` utility.
 
-### GameSessionContext
+### useSceneStore
 
 Returns a function that allows you to change the scene (eg: to exit your app).
 
